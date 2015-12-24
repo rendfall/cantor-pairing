@@ -1,0 +1,13 @@
+{
+    "name": "cantor-pairing",
+    "author": "Rendfall",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/rendfall/cantor-pairing.git"
+    },
+    "description": "Pairing function is a process to uniquely encode two natural numbers into a single natural number.",
+    "devDependencies": {
+        "webpack": "^1.12.9"
+    }
+}

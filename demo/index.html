@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cantor Pairing - Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-header">Cantor Pairing - Demo
+            <small>
+                <a class="" href="https://en.wikipedia.org/wiki/Pairing_function">
+                    [about]
+                </a>
+            </small>
+        </h1>
+
+        <div class="well">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="k1">k1</label>
+                    <input type="number" class="form-control" id="k1" value="12">
+                </div>
+                <div class="form-group">
+                    <label for="k2">k2</label>
+                    <input type="number" class="form-control" id="k2" value="623">
+                </div>
+
+                <button type="submit" id="pair-button" class="btn btn-primary">pair >></button>
+
+                <div class="form-group">
+                    <input type="number" class="form-control" id="paired-result">
+                </div>
+            </form>
+        </div>
+
+        <div class="well">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="k3">k3</label>
+                    <input type="number" class="form-control" id="k3" value="661">
+                </div>
+
+                <button type="submit" id="de-pair-button" class="btn btn-primary">depair >></button>
+
+                <div class="form-group">
+                    <label for="de-paired-result-k1">k1</label>
+                    <input type="number" class="form-control" id="de-paired-result-k1">
+                </div>
+                <div class="form-group">
+                    <label for="de-paired-result-k2">k2</label>
+                    <input type="number" class="form-control" id="de-paired-result-k2">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../dist/CantorPairing.js"></script>
+    <script>
+        (function (root) {
+            'use strict';
+
+            var $pairButton = document.getElementById('pair-button');
+            var $dePairButton = document.getElementById('de-pair-button');
+            var $k1 = document.getElementById('k1');
+            var $k2 = document.getElementById('k2');
+            var $k3 = document.getElementById('k3');
+            var $pairedResult = document.getElementById('paired-result');
+            var $dePairedResultK1 = document.getElementById('de-paired-result-k1');
+            var $dePairedResultK2 = document.getElementById('de-paired-result-k2');
+
+            function pair() {
+                $pairedResult.value = '';
+
+                var k1 = parseInt($k1.value, 10);
+                var k2 = parseInt($k2.value, 10);
+
+                if ((typeof k1 === 'undefined') || (typeof k2 === 'undefined')) {
+                    return;
+                }
+
+                var result = root.CantorPairing.pair(k1, k2);
+
+                $pairedResult.value = result || undefined;
+            }
+
+            function dePair() {
+                $dePairedResultK1.value = '';
+                $dePairedResultK2.value = '';
+
+                var k3 = parseInt($k3.value, 10);
+
+                if (typeof k3 === 'undefined') {
+                    return;
+                }
+
+                var result = root.CantorPairing.dePair(k3);
+                var resultStr = JSON.stringify(result);
+
+                $dePairedResultK1.value = result[0] || undefined;
+                $dePairedResultK2.value = result[1] || undefined;
+            }
+
+            $pairButton.addEventListener('click', function (evt) {
+                evt.preventDefault();
+                pair();
+            });
+
+            $dePairButton.addEventListener('click', function (evt) {
+                evt.preventDefault();
+                dePair();
+            });
+        }(this));
+    </script>
+</body>
+</html>
